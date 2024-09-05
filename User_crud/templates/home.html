@@ -2,19 +2,75 @@
 <html>
 <head>
     <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .home-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        a {
+            display: block;
+            margin: 10px 0;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Welcome, {{ user.username }}</h2>
-
-    <p>User ID: {{ user.username }}</p>
-    <p>Name: {{ user.first_name }}</p>
-
-    <a href="{% url 'update' %}">Update Your Information</a><br>
-    <a href="{% url 'delete' %}">Delete Your Account</a><br>
-
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <div class="home-container">
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>User ID: {{ user.username }}</p>
+        <p>Name: {{ user.first_name }}</p>
+        <a href="{% url 'update' %}">Update Your Information</a>
+        <a href="{% url 'delete' %}">Delete Your Account</a>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </body>
 </html>

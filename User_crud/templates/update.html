@@ -2,23 +2,51 @@
 <html>
 <head>
     <title>Update Information</title>
+    <script>
+        function validateForm() {
+            const firstName = document.forms["updateForm"]["first_name"].value;
+            const password = document.forms["updateForm"]["password"].value;
+
+            const nameRegex = /^[a-zA-Z가-힣]+$/;    // 이름은 한글 또는 영어로만 이루어져야 함
+            const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/;  // 비밀번호는 영문과 숫자 포함, 8자리 이상
+
+            if (!nameRegex.test(firstName)) {
+                alert("이름은 한글 또는 영어로만 입력할 수 있습니다.");
+                return false;
+            }
+
+            if (password && !passwordRegex.test(password)) {
+                alert("비밀번호는 8자리 이상이며, 영문자와 숫자를 모두 포함해야 합니다.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
-<body>
-    <h2>Update Your Information</h2>
-    <form method="post">
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px;">
+    <h2 style="color: #333;">Update Your Information</h2>
+    <form name="updateForm" method="post" onsubmit="return validateForm()" style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto;">
         {% csrf_token %}
-        <label for="username">User ID:</label>
-        <input type="text" name="username" value="{{ user.username }}" required><br><br>
+        <!-- User ID는 수정할 수 없도록 disabled 처리 -->
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="display: block; margin-bottom: 5px; font-weight: bold;">User ID:</label>
+            <input type="text" name="username" value="{{ user.username }}" disabled style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
 
-        <label for="first_name">Name:</label>
-        <input type="text" name="first_name" value="{{ user.first_name }}" required><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="first_name" style="display: block; margin-bottom: 5px; font-weight: bold;">Name:</label>
+            <input type="text" name="first_name" value="{{ user.first_name }}" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password"><br><br>
+        <div style="margin-bottom: 15px;">
+            <label for="password" style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
+            <input type="password" name="password" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
 
-        <button type="submit">Update</button>
+        <button type="submit" style="background-color: #007bff; color: #fff; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Update</button>
     </form>
 
-    <a href="{% url 'home' %}">Back to Home</a>
+    <a href="{% url 'home' %}" style="display: block; text-align: center; margin-top: 20px; color: #007bff; text-decoration: none;">Back to Home</a>
 </body>
 </html>

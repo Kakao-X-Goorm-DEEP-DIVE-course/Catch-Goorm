@@ -2,23 +2,118 @@
 <html>
 <head>
     <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            margin-top: 15px;
+            display: block;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const firstName = document.forms["signupForm"]["first_name"].value;
+            const password = document.forms["signupForm"]["password"].value;
+
+            const nameRegex = /^[a-zA-Z가-힣]+$/;
+            const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/;
+
+            if (!nameRegex.test(firstName)) {
+                alert("이름은 한글 또는 영어로만 입력할 수 있습니다.");
+                return false;
+            }
+
+            if (!passwordRegex.test(password)) {
+                alert("비밀번호는 8자리 이상이며, 영문자와 숫자를 모두 포함해야 합니다.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for=""username"">User ID:</label>
-        <input type="text" name="username" required><br><br>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form name="signupForm" method="post" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="username">User ID:</label>
+            <input type="text" name="username" required>
 
-        <label for=""first_name"">Name:</label>
-        <input type="text" name="first_name" required><br><br>
+            <label for="first_name">Name:</label>
+            <input type="text" name="first_name" required>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
 
-        <button type="submit">Sign Up</button>
-    </form>
-
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </div>
 </body>
 </html>

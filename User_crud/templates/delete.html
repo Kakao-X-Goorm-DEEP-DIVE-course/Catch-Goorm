@@ -2,15 +2,73 @@
 <html>
 <head>
     <title>Delete Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .delete-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Delete Your Account</h2>
-    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Delete My Account</button>
-    </form>
-
-    <a href="{% url 'home' %}">Cancel</a>
+    <div class="delete-container">
+        <h2>Delete Your Account</h2>
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Delete My Account</button>
+        </form>
+        <a href="{% url 'home' %}">Cancel</a>
+    </div>
 </body>
 </html>

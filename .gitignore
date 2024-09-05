@@ -5,7 +5,6 @@ __pycache__/
 *.pyd
 
 # Nginx and Docker specific
-default.conf
 *.log
 *.pid
 
